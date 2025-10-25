@@ -2,7 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import recipeRoutes from './routes/recipe.routes.js';  // 👈 check path
+import recipeRoutes from './routes/recipe.routes.js';  // 👈 your routes
 
 dotenv.config();
 const app = express();
@@ -11,11 +11,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Routes
+// Root route
 app.get("/", (req, res) => {
   res.send("✅ Recipes API is live!");
 });
 
+// API routes
+app.use("/api/recipes", recipeRoutes);   // 👈 mount routes
 
 // MongoDB connection
 mongoose.connect(process.env.MONGO_URI)
